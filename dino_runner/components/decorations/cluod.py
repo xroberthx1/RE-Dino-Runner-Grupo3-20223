@@ -1,13 +1,13 @@
 import random
-from dino_runner.components.obstacles.obstacle import Obstacle
-from dino_runner.utils.constants import BIRD
+from dino_runner.utils.constants import CLOUD, SCREEN_WIDTH
 
-class Bird(Obstacle):
-    def __init__(self,image):
-        self.image = BIRD[0]
+
+class Cluod:
+    def __init__(self):
+        self.image = CLOUD
         self.dino_rect = self.image.get_rect()
         self.type = 0
-        super().__init__(image,self.type)
+        self.rect.x = 900
         self.rect.y = random.randint(140, 240)
         self.fly_index = 0
 
@@ -15,9 +15,9 @@ class Bird(Obstacle):
         if self.fly_index >=10:
             self.fly_index = 0
         elif self.fly_index <= 5:
-            self.image = BIRD[0]
+            self.image = CLOUD
         else:
-            self.image = BIRD[1]
+            self.image = CLOUD
 
         screen.blit(self.image, (self.rect.x, self.rect.y))
         self.fly_index +=1
