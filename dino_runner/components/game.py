@@ -1,6 +1,6 @@
 import pygame
 from dino_runner.components.decorations.decorationsmanager import DecorationsManager
-from dino_runner.components.dino import Dino
+from dino_runner.components.Dino import Dino
 from dino_runner.components.obstacles.obstaclemanager import ObstacleManager
 from dino_runner.components import text_utils
 from dino_runner.components.power_ups.power_up_manager import PowerUpManager
