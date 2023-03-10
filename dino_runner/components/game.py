@@ -1,5 +1,4 @@
 import pygame
-from dino_runner.components.decorations.decorationsmanager import DecorationsManager
 from dino_runner.components.Dino import Dino
 from dino_runner.components.obstacles.obstaclemanager import ObstacleManager
 from dino_runner.components import text_utils
@@ -24,7 +23,7 @@ class Game:
         self.running = True
         self.death_count = 0
         self.power_up_manager = PowerUpManager()
-        self.decoration_manager = DecorationsManager()
+        #self.Could = Could()
 
     def run(self):
         # Game loop: events - update - draw
@@ -57,7 +56,7 @@ class Game:
         self.draw_background()
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
-        #self.decoration_manager.draw(self.screen)
+        #self.Could.draw(self.screen)
         self.power_up_manager.draw(self.screen)
         self.score()
         pygame.display.update()
@@ -95,13 +94,16 @@ class Game:
             self.screen.blit(DINO_START, (500, 380))
         else:
             text, text_rect = text_utils.get_centered_message('GAME OVER')
-            score, score_rect = text_utils.get_centered_message('Your Score: ' + str(self.points),
+            again, again_rect = text_utils.get_centered_message('Press a key to play again',
                                                                 height=half_screen_height + 50)
-            death, death_rect = text_utils.get_centered_message('Death count: ' + str(self.death_count),
+            score, score_rect = text_utils.get_centered_message('Your Score: ' + str(self.points),
                                                                 height=half_screen_height + 100)
+            death, death_rect = text_utils.get_centered_message('Death count: ' + str(self.death_count),
+                                                                height=half_screen_height + 150)
             self.screen.blit(score, score_rect)
             self.screen.blit(text, text_rect)
             self.screen.blit(death, death_rect)
+            self.screen.blit(again, again_rect)
 
             self.screen.blit(DINO_DEAD, (500, 150))
 
@@ -127,3 +129,4 @@ class Game:
     def create_components(self):
         self.obstacle_manager.reset_obstacles()
         self.power_up_manager.reset_power_ups(self.points)
+        

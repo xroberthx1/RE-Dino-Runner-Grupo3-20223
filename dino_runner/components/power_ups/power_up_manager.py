@@ -1,5 +1,6 @@
 import random
 import pygame
+from dino_runner.components.obstacles.obstacle import Obstacle
 from dino_runner.components.power_ups.hammer import Hammer
 from dino_runner.components.power_ups.shield import Shield
 
@@ -22,19 +23,22 @@ class PowerUpManager:
         self.points = points
         #print(self.when_appers)
         if game.player.shield == True and self.when_appers <= self.points:
-            self.when_appers+=200
+            self.when_appers+=50
        
         if len(self.power_ups) == 0:
-            if self.when_appers == self.points:
+            if self.when_appers <= self.points:
                 self.x=random.randint(0,1)
                 
                 #print("generating powerup")
                 if self.x == 0:
                     self.power_ups.append(Shield())
+                    
                 if self.x == 1:
                     self.power_ups.append(Hammer())
-                    #self.points =self.points+1000
-                self.when_appers = random.randint(self.when_appers + 200, 500 + self.when_appers)
+                    
+                    self.more_points(points+1000)
+                    
+                self.when_appers = random.randint(self.when_appers + 100, 250 + self.when_appers)
                 
         return self.power_ups
     
@@ -44,7 +48,7 @@ class PowerUpManager:
         for power_up in self.power_ups:
             power_up.update(game_speed, self.power_ups)
             if player.dino_rect.colliderect(power_up.rect):
-                self.points += 1000
+                
                 power_up.start_time = pygame.time.get_ticks()
                 player.shield = True
                 player.show_text = True
@@ -52,8 +56,15 @@ class PowerUpManager:
                 time_random = random.randrange(5, 8)
                 player.shield_time_up = power_up.start_time + (time_random * 1000)
                 self.power_ups.remove(power_up)
+              
     
     def draw (self, screen):
         for power_up in self.power_ups:
             power_up.draw(screen)
+
+    def more_points (self, points):
+        self.points = points
+
+    
+
 
